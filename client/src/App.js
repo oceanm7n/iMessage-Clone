@@ -8,11 +8,11 @@ import {loadUser} from './actions/authActions';
 import PrivateRoute from './components/helpers/PrivateRoute';
 
 import AppNavbar from './components/AppNavbar'
-import Register from './components/Register';
+import Register from './components/sign/Register';
 import Home from './components/Home';
 import About from './components/About';
-import Login from './components/Login';
-import Inbox from './components/Inbox';
+import Login from './components/sign/Login';
+import Inbox from './components/containers/Inbox';
 
 class App extends Component {
     componentDidMount() {

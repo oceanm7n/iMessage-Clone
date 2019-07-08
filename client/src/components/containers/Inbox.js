@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import './messenger/index.css';
+import '../messenger/index.css';
 
-import Chat from './messenger/Chat';
+import Chat from '../messenger/Chat';
 
-import {getDialogues, getMessages} from '../actions/messageActions';
-import RecentDialogue from './messenger/RecentDialogue';
-import Controls from './controls/Controls';
+import {getDialogues, getMessages} from '../../actions/messageActions';
+import RecentDialogue from '../messenger/RecentDialogue';
+import Controls from '../helpers/Controls';
 
 class Inbox extends Component {
     constructor(props) {
