@@ -1,0 +1,118 @@
+.inbox-container {
+    flex: 1 1 91%;
+    display: flex;
+    margin: 0 auto;
+    width:100%;
+}
+
+.recent-container {
+    left: 0;
+    top: 0;
+    width: 30%;
+    height: 100%;
+    border-right: 1px solid var(--grey);
+    overflow-y: auto;
+}
+
+.recent-item {
+    border: 1px solid var(--grey);
+    padding: 10px 20px 10px 40px;
+    cursor: pointer;
+}
+
+.recent-item-active, .recent-item-active > * {
+    background-color: var(--grey);
+}
+
+.recent-item-user {
+    margin-bottom: 10px;
+}
+
+.controls {
+    padding: 5px 10px;
+    text-align: center;
+}
+
+.controls button {
+    display: block;
+    margin: 15px auto 10px;
+    padding: 0 15px;
+    font-size: 0.8em;
+    font-weight: 500;
+    border: none;
+    border-radius: 20px;
+    outline: none;
+    height: 30px;
+    color: white;
+    background-color: var(--main-accent-color);
+    cursor: pointer;
+}
+
+.controls input {
+    display: block;
+    margin: 10px auto 0;
+    float: none;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
+
+.chat-container {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    flex: 0 1 60px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 100;
+    padding: 20px;
+    border-bottom: 1px solid var(--grey)
+}
+
+.message-container {
+   flex: 1 1 auto;
+}
+
+.message-input-container {
+    border-top: 1px solid var(--grey);
+    flex: 0 1 90px;
+    padding: 25px;
+}
+
+.message-input {
+    background-color: var(--weak-grey);
+    text-align: center;
+    border: 1px solid var(--grey);
+    border-radius: 20px;
+    height: 40px;
+    width: auto;
+}
+
+.message-input input {
+    height: 37px;
+    border: none;
+    width: 80%;
+    margin-left: 15px;
+    float: left;
+    padding: 2px 10px;
+    outline: none;
+}
+
+.message-input button {
+    border: none;
+    border-radius: 20px;
+    width: 15%;
+    outline: none;
+    height: 38px;
+    float: right;
+    color: white;
+    background-color: var(--main-accent-color);
+    cursor: pointer;
+}
+
+.message-input button:hover {
+    background-color: var(--weak-accent-color);
+}

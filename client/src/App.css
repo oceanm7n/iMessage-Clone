@@ -1,0 +1,121 @@
+:root {
+    --main-accent-color: rgb(14, 122, 254);
+    --weak-accent-color: rgb(114, 177, 255);
+    --grey: rgb(240, 240, 245);
+    --weak-grey: rgb(253, 253, 255);
+    --black: rgb(0, 0, 10);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    color: var(--black);
+    background-color: var(--weak-grey);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100% !important;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.navbar {
+    flex: 0 1 9%;
+    height: 90px;
+    min-height: 90px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: var(--weak-grey);
+    color: var(--main-accent-color);
+    text-align: center;
+    padding: 30px 50px 0;
+    border-bottom: 1px solid var(--grey);
+}
+
+.navbar-header {
+    color: var(--main-accent-color);
+    font-size: 1.5em;
+    float: left;
+    text-decoration: none;
+}
+
+.navbar-btn {
+    margin: 0 15px;
+    padding: 5px 10px;
+    float: right;
+    outline: none;
+    border: 0;
+    color: var(--weak-accent-color);
+    cursor: pointer;
+    text-decoration: none;
+}
+.navbar-btn:hover {
+    color: var(--main-accent-color);
+}
+
+.sign-form {
+    width: 30%;
+    min-width: 340px;
+    margin: 50px auto;
+    padding: 20px 60px;
+    text-align: center;
+    border: 1px solid grey;
+    border-radius: 20px;
+}
+
+.sign-form h2 {
+    font-weight: normal;
+    font-size: 1.3em;
+    color: var(--main-accent-color);
+}
+
+fieldset {
+    border: none;
+    margin: 20px 0 10px;
+    text-align: center;
+}
+
+fieldset > input, .controls input {
+    margin-top: 10px;
+    padding: 0 10px;
+    width: 100%;
+    float: right;
+    height: 30px;
+    background-color: #fafafa;
+    border: 1px solid grey;
+    border-radius: 15px;
+    outline: none;
+}
+
+.sign-button {
+    padding: 0;
+    margin: 20px 0 0;
+    width: 60px;
+    height: 30px;
+    line-height: 32px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--main-accent-color);
+    color: white;
+    font-size: 0.8em;
+    transition: 0.2s;
+}
+.sign-button:hover {
+    width: 80px;
+    font-size: 1em;
+}
+.sign-button:active {
+    outline: none;
+    background-color: var(--weak-accent-color);
+}
+.sign-button:focus {
+    outline: none;
+}

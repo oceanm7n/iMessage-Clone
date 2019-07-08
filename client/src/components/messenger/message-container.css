@@ -1,0 +1,23 @@
+.message-container {
+    padding: 30px 30px 14px;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+}
+
+.message{
+    margin-top: 6px;
+    border: none;
+    border-radius: 30px;
+    color: black;
+    background-color: var(--grey);
+    padding: 10px 15px 8px;
+    width: auto;
+    align-self: flex-start;
+}
+
+.message-mine {
+    background-color: var(--main-accent-color);
+    color: white;
+    align-self: flex-end;
+}
