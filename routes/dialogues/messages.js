@@ -7,7 +7,7 @@ const User = require('../../models/User');
 const Dialogue = require('../../models/Dialogue');
 const Message = require('../../models/Message');
 
-// async foreach
+// Async foreach
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index, array);
@@ -16,11 +16,11 @@ async function asyncForEach(array, callback) {
 
 // Get recents
 router.get('/recents', auth, async(req, res) => {
+    // Pulling out query variables
     const myId = req.user.id;
 
     try {
         const dialogues = await Dialogue.find({members: myId});
-
         let recents = [];
 
         await asyncForEach(dialogues, async(dialogue) => {
@@ -62,7 +62,7 @@ router.get('/recents', auth, async(req, res) => {
 
 // Get messages by DIALOGUE ID !
 router.get('/dialogue/:sel', auth, async(req, res) => {
-    // Pulling request data
+    // Pulling out query variables
     const dialogueId = req.params.sel;
     const myId = req.user.id;
 
@@ -100,128 +100,98 @@ router.get('/dialogue/:sel', auth, async(req, res) => {
 })
 
 // Create a new dialogue
-router.post('/new_dialogue/:sel', auth, (req, res) => {
+router.post('/new_dialogue/:sel', auth, async(req, res) => {
+    // Pulling out query variables
     const myId = req.user.id;
     const partnerId = req.params.sel;
-    Dialogue
-        .findOne({
-        members: {
-            $all: [partnerId, myId]
-        }
-    })
-        .then(dialogue => {
-            if (dialogue) 
-                return res.json({dialogue_id: dialogue._id});
-            const newDialogue = new Dialogue({
-                members: [myId, partnerId]
-            });
-            newDialogue
-                .save()
-                .then(dialogue => {
-                    res.json({dialogue_id: dialogue._id});
-                })
-        })
 
+    try {
+        // Finding a dialogue
+        const dialogue = await Dialogue.findOne({
+            members: {
+                $all: [partnerId, myId]
+            }
+        });
+
+        // Dialogue already exists, sending its _id to client
+        if (dialogue) 
+            return res.json({dialogue_id: dialogue._id});
+
+        // Creating a new dialogue and sending it's _id to client
+        const newDialogue = new Dialogue({
+            members: [myId, partnerId]
+        });
+        const id = await newDialogue.save();
+        res.json({dialogue_id: id._id});
+    } catch (err) {
+        console.log(err);
+    }
 })
 
 // Send a new message to USER_ID!
-router.post('/new_message/:sel', auth, (req, res) => {
+router.post('/new_message/:sel', auth, async(req, res) => {
+    // Pulling out query variables
     const partnerId = req.params.sel;
     const myId = req.user.id;
     const body = req.body.message;
 
+    // Handling bad queries
     if (!partnerId || !myId) 
         return res.status(400).json({message: 'Not all ids specified'});
     if (!body) 
         return res.status(400).json({messaeg: "Can't send an empty message!"});
     if (partnerId === myId) 
-        return res.status(400).json({message: `You can't sent messages to yourself!`})
-        // Finding a user
-    User
-        .findById(partnerId)
-        .then(user => {
-            if (user) {
-                // User found
-                Dialogue
-                    .findOne({
-                    members: {
-                        $all: [partnerId, myId]
-                    }
-                })
-                    .then(dialogue => {
-                        if (dialogue) {
-                            // Dialogue exists
-                            const dialogueId = dialogue._id;
-                            const newMessage = new Message({
-                                dialogueId,
-                                author: myId,
-                                body,
-                                created_on: Date.now()
-                            });
-                            newMessage
-                                .save()
-                                .then(msg => {
-                                    res.json({msg})
-                                })
-                                .catch(err => {
-                                    console.log(err)
-                                    res
-                                        .status(500)
-                                        .json({message: 'Something went wrong! Check server console.'})
-                                })
-                        } else {
-                            // Dialogue does not exist, creating a new one
-                            const newDialogue = new Dialogue({
-                                members: [myId, partnerId]
-                            })
-                            newDialogue
-                                .save()
-                                .then(dialogue => {
-                                    const dialogueId = dialogue._id;
-                                    const newMessage = new Message({
-                                        dialogueId,
-                                        author: myId,
-                                        body,
-                                        created_on: Date.now()
-                                    });
-                                    newMessage
-                                        .save()
-                                        .then(msg => {
-                                            res.json({msg})
-                                        })
-                                        .catch(err => {
-                                            console.log(err)
-                                            res
-                                                .status(500)
-                                                .json({message: 'Something went wrong! Check server console.'})
-                                        })
-                                })
-                                .catch(err => {
-                                    console.log(err)
-                                    res
-                                        .status(500)
-                                        .json({message: 'Something went wrong! Check server console.'})
-                                })
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err)
-                        res
-                            .status(500)
-                            .json({message: 'Something went wrong! Check server console.'})
-                    });
-            } else 
-                res
-                    .status(400)
-                    .json({message: 'User does not exist!'});
+        return res.status(400).json({message: `You can't sent messages to yourself!`});
+    
+    try {
+        const user = await User.findById(partnerId);
+        
+        // User not found
+        if (!user)
+            return res.status(400).json({message: 'User does not exist!'});
+        
+        const dialogue = await Dialogue.findOne({
+            members: {
+                $all: [partnerId, myId]
             }
-        )
-        .catch(err => {
-            console.log(err)
-            res
-                .status(500)
-                .json({message: 'Something went wrong! Check server console.'})
-        })
+        });
+
+        if (dialogue) {
+            // Dialogue exists
+
+            const dialogueId = dialogue._id;
+            const newMessage = new Message({
+                dialogueId,
+                author: myId,
+                body,
+                created_on: Date.now()
+            });
+
+            const msg = await newMessage.save();
+            res.json({msg});
+
+        } else {
+            // Dialogue does not exist, creating a new one
+
+            const newDialogue = new Dialogue({
+                members: [myId, partnerId]
+            })
+
+            const savedNewDialogue = await newDialogue.save();
+            const dialogueId = savedNewDialogue._id;
+            const newMessage = new Message({
+                dialogueId,
+                author: myId,
+                body,
+                created_on: Date.now()
+            });
+            const msg = await newMessage.save();
+            res.json({msg})
+        }
+    } catch (err) {
+        res.status(500).json({message: 'Something went wrong! Check server console.'});
+        console.log(err);
+    }
 })
 
 module.exports = router;
