@@ -28,3 +28,6 @@ Keep in mind, that your email will not be validated. Therefore, you may even use
 
 ## Todo-list
 * ~~Rewrite backend logic using async/await~~
+* Create content for 'Home' and 'About' pages
+* Mobile-friendly design
+* Dark mode
