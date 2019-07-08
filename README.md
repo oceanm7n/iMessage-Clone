@@ -31,3 +31,4 @@ Keep in mind, that your email will not be validated. Therefore, you may even use
 * Create content for 'Home' and 'About' pages
 * Mobile-friendly design
 * Dark mode
+* Fix chat real-time update
