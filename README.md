@@ -3,6 +3,9 @@
 iMessage clone is a web application, which allows you to message other users of this app with ease. The purpose of this app is to put my little knowledge of different web-development technologies into practice. 
 ![](https://raw.githubusercontent.com/oceanm7n/iMessage-Clone/master/assets/full.png)
 
+## Link
+http://still-eyrie-81002.herokuapp.com
+
 ## Usage
 1. To use the app, you have to register or sign in.
 ![](https://raw.githubusercontent.com/oceanm7n/iMessage-Clone/master/assets/register.png)
