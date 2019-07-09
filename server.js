@@ -29,6 +29,13 @@ app.use('/api/users', require('./routes/sign/users'));
 app.use('/api/auth', require('./routes/sign/auth'));
 app.use('/api/messages', require('./routes/dialogues/messages'));
 
+// Serve static if in production
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
+    })
+}
 
 // 404 Middleware
 app.use((req, res, next) => {
@@ -37,14 +44,6 @@ app.use((req, res, next) => {
         .type('text')
         .send('Not found');
 });
-
-// Serve static if in production
-if(process.env.NODE_ENV === 'production') {
-    app.use(express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
-    })
-}
 
 app.listen(port || 3000, () => {
     console.log(`Server listening on port ${port}`);
