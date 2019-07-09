@@ -7,8 +7,8 @@ class About extends Component {
     }
     render() {
         return (
-            <div>
-                About
+            <div style={{'margin': '30px', 'text-align': 'center'}}>
+                <h2>Todo: finish 'About' landing page</h2>
             </div>
         );
     }

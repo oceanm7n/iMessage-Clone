@@ -7,8 +7,8 @@ class Home extends Component {
     }
     render() {
         return (
-            <div>
-                Homepage
+            <div style={{'margin': '30px', 'text-align': 'center'}}>
+                <h2>Todo: finish 'Homepage'</h2>
             </div>
         );
     }

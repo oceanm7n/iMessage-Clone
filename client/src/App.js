@@ -38,6 +38,7 @@ class App extends Component {
                         <Route path='/register' exact component={Register}/>
                         <Route path='/login' exact component={Login}/>
                         <PrivateRoute exact path="/inbox" component={Inbox}/>
+                        <PrivateRoute exact path="/home" component={Home}/>
                     </Switch>
                 </Router>
             </Provider>

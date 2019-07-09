@@ -72,7 +72,7 @@ class Register extends Component {
                         name='password'
                         className='sign-input'/>
                 </fieldset>
-                <input type='submit' className='sign-button'/>
+                <input type='submit' value='Submit' className='sign-button'/>
             </form>
         );
     }
